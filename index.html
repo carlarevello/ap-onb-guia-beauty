@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guía Onboarding Beauty AI</title>
+<style>
+  :root{
+    --ink:#14151f; --text:#1f2230; --muted:#6b7080; --line:#e7e8ee; --soft:#f6f6f9;
+    --pill:#14151f; --pink-bg:#fdf1f6; --amber-bg:#fff7e8; --blue-bg:#eff5ff;
+    --grad:linear-gradient(90deg,#f0602b 0%,#d63a7a 50%,#8a3ae6 100%);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;color:var(--text);background:#fff;font:16px/1.55 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .layout{display:grid;grid-template-columns:240px minmax(0,1fr);gap:36px;max-width:1240px;margin:0 auto;padding:28px 28px 60px}
+  nav.side{position:sticky;top:24px;align-self:start;max-height:calc(100vh - 48px);overflow:auto}
+  .brand{font-weight:700;font-size:15px;color:var(--ink);padding:6px 10px 18px}
+  .navgroup{font-size:12px;color:var(--muted);padding:16px 10px 6px}
+  nav.side a{display:block;text-decoration:none;font-size:15px;color:#3a3d4b;padding:8px 10px;border-radius:9px;margin:1px 0}
+  nav.side a:hover{background:var(--soft)}
+  nav.side a.active{background:var(--pill);color:#fff;font-weight:600}
+  main{min-width:0;max-width:980px}
+  section.page{display:none}
+  section.page.active{display:block}
+  .eyebrow{font-size:14px;color:var(--muted);font-weight:500;margin:6px 0 10px}
+  h1{font-size:40px;line-height:1.12;letter-spacing:-.02em;color:var(--ink);margin:0 0 18px;font-weight:600}
+  .grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  h2{font-size:34px;letter-spacing:-.02em;color:var(--ink);margin:4px 0 14px;font-weight:600}
+  h3{font-size:18px;color:var(--ink);margin:30px 0 12px;font-weight:600}
+  h4{font-size:15px;color:var(--ink);margin:18px 0 6px}
+  .lead{font-size:18px;color:#4a4e5e;max-width:760px;margin:0 0 22px}
+  p{margin:0 0 12px}
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));gap:12px;margin:14px 0 28px}
+  .card{display:block;text-decoration:none;border:1px solid var(--line);border-radius:var(--radius);padding:16px 14px;transition:border-color .15s,box-shadow .15s}
+  .card:hover{border-color:#c9cbd6;box-shadow:0 2px 10px rgba(20,21,31,.06)}
+  .card b{display:block;color:var(--ink);font-size:16px;margin-bottom:6px}
+  .card span{display:block;font-size:14px;color:#4a4e5e}
+  .card small{display:block;font-size:13px;color:var(--muted);margin-top:12px}
+  details{border-top:1px solid var(--line);padding:0}
+  details:last-of-type{border-bottom:1px solid var(--line)}
+  details + :not(details){margin-top:18px}
+  summary{list-style:none;cursor:pointer;font-weight:600;color:var(--ink);padding:12px 0;font-size:16px}
+  summary::-webkit-details-marker{display:none}
+  summary::before{content:"\25B6";font-size:11px;display:inline-block;margin-right:8px;transition:transform .15s;vertical-align:1px}
+  details[open] > summary::before{transform:rotate(90deg)}
+  details > .inner{padding:0 0 16px}
+  ol.steps{list-style:none;padding:0;margin:0}
+  ol.steps > li{padding:14px 0;border-bottom:1px solid var(--line)}
+  ol.steps > li:last-child{border-bottom:0}
+  ol.steps > li > strong{display:block;color:var(--ink);font-size:16px;margin-bottom:2px}
+  ol.steps > li > p{margin:0 0 4px}
+  .meta{font-size:13px;color:var(--muted)}
+  .meta span{margin-right:16px}
+  ol.order{list-style:none;padding:0;margin:0;counter-reset:o}
+  ol.order > li{counter-increment:o;position:relative;padding:12px 0 12px 40px;border-bottom:1px solid var(--line)}
+  ol.order > li:last-child{border-bottom:0}
+  ol.order > li::before{content:counter(o);position:absolute;left:0;top:12px;width:26px;height:26px;border-radius:50%;background:var(--soft);color:var(--ink);font-weight:600;font-size:13px;display:flex;align-items:center;justify-content:center}
+  .tag{display:inline-block;font-style:italic;font-size:12px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:1px 8px;margin-right:8px;vertical-align:1px}
+  ol.order ul,ol.steps ul,.inner ul{margin:6px 0 0;padding-left:20px}
+  ol.order li li,.inner li{margin:3px 0}
+  ul.plain{padding-left:20px;margin:6px 0 12px}
+  ul.plain li{margin:4px 0}
+  ul.check{list-style:none;padding:0;margin:6px 0 14px}
+  ul.check li{position:relative;padding:6px 0 6px 28px;border-bottom:1px solid var(--line)}
+  ul.check li:last-child{border-bottom:0}
+  ul.check li::before{content:"";position:absolute;left:2px;top:10px;width:14px;height:14px;border:1.5px solid #9a9db0;border-radius:4px}
+  .tbl{overflow-x:auto;margin:8px 0 18px}
+  table{border-collapse:collapse;width:100%;font-size:15px}
+  th{font-size:13px;color:#4a4e5e;font-weight:600;text-align:left;padding:10px 12px 10px 0;border-bottom:1px solid var(--line)}
+  td{vertical-align:top;padding:12px 12px 12px 0;border-bottom:1px solid var(--line)}
+  td:first-child{font-weight:600;color:var(--ink)}
+  table.free td:first-child{font-weight:400;color:var(--text)}
+  .callout{background:var(--pink-bg);border-radius:12px;padding:14px 18px;margin:16px 0 20px}
+  .callout.amber{background:var(--amber-bg)}
+  .callout.blue{background:var(--blue-bg)}
+  .callout.gray{background:var(--soft)}
+  .callout p:last-child{margin:0}
+  .facts{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin:4px 0 22px}
+  .fact{background:var(--soft);border-radius:12px;padding:12px 14px;font-size:14px}
+  .fact b{display:block;font-size:12px;color:var(--muted);font-weight:600;margin-bottom:2px}
+  .flow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:8px 0 16px;font-size:13px}
+  .flow span{border:1px solid var(--line);border-radius:999px;padding:4px 10px;background:#fff}
+  .flow span.last{background:var(--pill);color:#fff;border-color:var(--pill)}
+  .flow i{color:var(--muted);font-style:normal}
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0 18px}
+  .duo > div{border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .duo h4{margin-top:0}
+  blockquote{margin:6px 0 12px;padding:2px 0 2px 14px;border-left:3px solid #d63a7a;color:#3a3d4b}
+  .codewrap{position:relative;margin:8px 0 16px}
+  pre{background:var(--soft);border-radius:12px;padding:14px 16px;font:13.5px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre-wrap;margin:0}
+  .copy{position:absolute;top:8px;right:8px;font:12px/1 inherit;border:1px solid var(--line);background:#fff;border-radius:8px;padding:6px 10px;cursor:pointer}
+  .nodecir{font-size:13px;color:#a2324f;margin-top:4px}
+  .qa details summary{font-weight:500}
+  .pager{display:flex;justify-content:space-between;gap:12px;margin:36px 0 0;padding-top:20px}
+  .btn{display:inline-block;text-decoration:none;border-radius:999px;padding:11px 18px;font-weight:600;font-size:15px}
+  .btn.dark{background:var(--pill);color:#fff;margin-left:auto}
+  .btn.ghost{border:1px solid var(--line);color:var(--ink)}
+  footer{border-top:1px solid var(--line);margin-top:28px;padding-top:16px;font-size:13px;color:var(--muted)}
+  @media (max-width:900px){
+    .layout{display:block;padding:0 14px 40px}
+    nav.side{position:sticky;top:0;z-index:5;background:#fff;max-height:none;display:flex;gap:4px;overflow-x:auto;padding:10px 0;border-bottom:1px solid var(--line);margin-bottom:22px;white-space:nowrap;scrollbar-width:none}
+    nav.side::-webkit-scrollbar{display:none}
+    .brand,.navgroup{display:none}
+    nav.side a{flex:0 0 auto;padding:9px 12px}
+    h1{font-size:30px} h2{font-size:28px}
+    .duo{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+<nav class="side" id="nav">
+  <div class="brand">Guía Onboarding Beauty AI</div>
+  <a href="#inicio">Inicio</a>
+  <div class="navgroup">El recorrido</div>
+  <a href="#preparar">1. Preparar</a>
+  <a href="#saas">2. Capacitación SaaS</a>
+  <a href="#ia">3. Capacitación IA</a>
+  <a href="#crm">4. Capacitación CRM</a>
+  <a href="#acompanar">5. Acompañar</a>
+  <div class="navgroup">Para consultar</div>
+  <a href="#atender">Cómo atendemos</a>
+  <a href="#pedir">Cómo pedir cosas</a>
+  <a href="#preguntas">Preguntas del cliente</a>
+  <a href="#pais">Diferencias por país</a>
+  <a href="#equipo">Camino del equipo</a>
+  <a href="#pendientes">Por confirmar</a>
+</nav>
+
+<main>
+
+<!-- INICIO -->
+<section class="page" id="inicio">
+  <div class="eyebrow">Onboarding de clientes con IA · Beauty</div>
+  <h1>Encender la IA es un paso. El trabajo es que el comercio <span class="grad">sepa usar Bella</span></h1>
+  <p class="lead">Base para que los equipos de onboarding Beauty de Chile y Argentina estudien y acompañen cuentas de KAM e ISR, construida sobre la guía de Sabrina Orellana del 12 de noviembre. Todo se hace desde Bella, el back office de Beauty o Iris.</p>
+
+  <h3>Tu trabajo tiene 5 fases. Entra a la que te toca</h3>
+  <div class="cards">
+    <a class="card" href="#preparar"><b>1. Preparar</b><span>Recibir, agendar y seguir el autoonboarding</span><small>Pasos 1 a 4</small></a>
+    <a class="card" href="#saas"><b>2. Capacitación SaaS</b><span>La agenda lista. Solo camino ISR</span><small>Pasos 5 y 6</small></a>
+    <a class="card" href="#ia"><b>3. Capacitación IA</b><span>Enseñar Bella y encender</span><small>Pasos 7 y 8</small></a>
+    <a class="card" href="#crm"><b>4. Capacitación CRM</b><span>Plantillas, segmentos y automatizaciones</span><small>Pasos 9 y 10</small></a>
+    <a class="card" href="#acompanar"><b>5. Acompañar</b><span>Periodo de ajustes hasta la semana 10</span><small>Pasos 11 y 12</small></a>
+  </div>
+
+  <details>
+    <summary>Dos caminos: KAM e ISR</summary>
+    <div class="inner">
+      <p>El camino depende de quién vendió y de si el comercio ya usa AgendaPro. La Capacitación IA y la Capacitación CRM son <b>las mismas en los dos caminos</b>. El ISR suma la Capacitación SaaS al inicio porque el cliente todavía no tiene su agenda armada.</p>
+      <div class="tbl"><table>
+        <tr><th></th><th>Camino KAM · ya es cliente</th><th>Camino ISR · cliente nuevo (SaaS + IA)</th></tr>
+        <tr><td>Antes</td><td>El KAM vende la IA y prende el autoonboarding. El cliente conecta Meta, responde el formulario y revisa las simulaciones</td><td>El ISR vende SaaS + IA. El back office asigna al onboarder, que contacta al cliente para agendar la Capacitación SaaS</td></tr>
+        <tr><td>Capacitación SaaS</td><td>No aplica: ya usa AgendaPro</td><td>Configuración de la agenda, 60 min. Al terminar, el onboarder prende el autoonboarding</td></tr>
+        <tr><td>Entre medio</td><td>No aplica</td><td>Autoonboarding: el cliente conecta Meta, responde el formulario y revisa las simulaciones</td></tr>
+        <tr><td>Capacitación IA</td><td>IA y encendido, 60 min aprox. Es su primera capacitación. Aquí se agenda la Capacitación CRM</td><td>IA y encendido, 60 min aprox. Aquí se agenda la Capacitación CRM</td></tr>
+        <tr><td>Capacitación CRM</td><td>Cerca de 1 hora, cuando el cliente prefiera (idealmente una semana después)</td><td>Igual</td></tr>
+        <tr><td>Después</td><td>IA encendida. Para mejorarla, el cliente va por Iris. Iris o los ingenieros resuelven</td><td>Igual</td></tr>
+      </table></div>
+      <div class="callout"><p><b>El periodo de onboarding dura 10 semanas.</b> Primero la implementación (autoonboarding y capacitaciones) y después el periodo de ajustes.</p></div>
+      <p>Las capacitaciones se nombran así, no por número: <b>Capacitación SaaS</b>, <b>Capacitación IA</b> y <b>Capacitación CRM</b>.</p>
+    </div>
+  </details>
+  <details>
+    <summary>Quién hace qué: onboarding, KAM, ISR y cliente</summary>
+    <div class="inner">
+      <div class="tbl"><table>
+        <tr><th>Momento</th><th>Onboarding</th><th>KAM / ISR</th><th>Cliente</th></tr>
+        <tr><td>Venta</td><td>Recibe el Slack con el cliente asignado</td><td>KAM: marca la venta ganada y prende el autoonboarding. ISR: la venta queda en Chargebee y HubSpot</td><td>Compra</td></tr>
+        <tr><td>Autoonboarding</td><td>Sigue el avance en Implementaciones y destraba si se detiene. Acompaña Meta si no puede solo</td><td></td><td>Conecta Meta, responde el formulario, revisa simulaciones y agenda</td></tr>
+        <tr><td>Capacitaciones</td><td>Hace la SaaS (ISR), la IA y la CRM. Enciende la IA en la Capacitación IA</td><td></td><td>Configura en su pantalla, aprende haciendo y decide cuándo encender</td></tr>
+        <tr><td>Después</td><td>Está al tanto en el periodo de ajustes y ataca el riesgo de churn</td><td>Apoya si hay riesgo de churn</td><td>Pide cambios por Iris</td></tr>
+      </table></div>
+      <div class="tbl"><table class="free">
+        <tr><th>Onboarding sí</th><th>Onboarding no</th></tr>
+        <tr><td>Sigue el autoonboarding en Implementaciones y contacta al cliente si está detenido</td><td>Prender el autoonboarding de un cliente KAM (lo prende el KAM)</td></tr>
+        <tr><td>Acompaña la conexión a Meta cuando el cliente no puede solo</td><td>Entrar a Cortex ni tocar el prompt</td></tr>
+        <tr><td>Hace las capacitaciones y enciende la IA en la Capacitación IA</td><td>Encender la IA desde Cortex al conectar Meta</td></tr>
+        <tr><td>Revisa la cuenta antes de cada reunión</td><td>Recibir pedidos de ajuste por WhatsApp: todo cambio va por Iris</td></tr>
+        <tr><td>Lleva las dudas de personalización al canal de Onboarding Beauty</td><td>Prometer personalizaciones o funciones que vienen sin confirmarlas</td></tr>
+      </table></div>
+      <p><b>Fuera de las capacitaciones no hablamos con el cliente.</b> Excepciones: la conexión a Meta, un autoonboarding detenido y el riesgo de churn en el periodo de ajustes.</p>
+    </div>
+  </details>
+  <details>
+    <summary>Palabras que vas a ver</summary>
+    <div class="inner"><div class="tbl"><table>
+      <tr><th>Palabra</th><th>Qué es</th></tr>
+      <tr><td>KAM e ISR</td><td>Quienes venden: KAM a clientes que ya tenemos, ISR a clientes nuevos (SaaS + IA)</td></tr>
+      <tr><td>Back office de Beauty</td><td>Donde se marcan las ventas, se asignan onboarders, se prende el autoonboarding y se sigue cada implementación</td></tr>
+      <tr><td>Autoonboarding</td><td>El camino que el cliente hace solo en «Agente IA → Configura tu agente»: Meta, formulario, armado, simulaciones y agenda la capacitación</td></tr>
+      <tr><td>Implementaciones</td><td>La sección del back office donde ves en qué etapa va cada cliente y las alertas de tiempo</td></tr>
+      <tr><td>Formulario «Conocer tu salón»</td><td>Las preguntas con que se arma el agente: cómo se presenta, cómo agenda, abonos, recordatorios</td></tr>
+      <tr><td>La tuerca</td><td>AgendaPro → tuerca → Configuraciones → Sitio web. Las reglas de reserva que sigue la IA</td></tr>
+      <tr><td>Bella</td><td>La plataforma donde el comercio ve chats, alertas, su agente y el CRM. Se instala como app desde merchant.agendapro.com</td></tr>
+      <tr><td>Heredada, forzada, apagada</td><td>Los tres modos de la IA. Heredada es la recomendada siempre</td></tr>
+      <tr><td>Estrellita</td><td>El botón que le devuelve un chat a la IA</td></tr>
+      <tr><td>Escalado</td><td>Un chat que la IA pasa al equipo. Aparece arriba y en rojo, en «Requiere atención»</td></tr>
+      <tr><td>Iris</td><td>El soporte de AgendaPro, no la IA que habla con las clientas. Todo pedido de cambio va por ahí</td></tr>
+      <tr><td>Cortex</td><td>Herramienta interna donde se activan Iris, CRM e imágenes. Onboarding no entra</td></tr>
+      <tr><td>Plantilla, segmento, automatización</td><td>Mensaje aprobado por Meta, filtro de la base y regla que los une para enviar</td></tr>
+      <tr><td>Chatwoot</td><td>Por donde onboarding se comunica con el cliente, según el país</td></tr>
+      <tr><td>Diio</td><td>La herramienta que graba las capacitaciones</td></tr>
+    </table></div></div>
+  </details>
+  <details>
+    <summary>Dónde pedir ayuda</summary>
+    <div class="inner"><div class="tbl"><table>
+      <tr><th>Necesitas</th><th>Dónde</th></tr>
+      <tr><td>Duda de personalización o algo que no está en esta guía</td><td>Canal de Slack de Onboarding Beauty. Responde Sabrina o el ingeniero que sepa. No se escribe directo a un ingeniero</td></tr>
+      <tr><td>Que se active Iris, CRM o imágenes</td><td>Canal de Onboarding Beauty, antes de la reunión (se activa desde Cortex)</td></tr>
+      <tr><td>Error de Meta al conectar</td><td><a href="https://claude.ai/artifact/JXzYWAJcdPNxqz7MDBqYRb" target="_blank" rel="noopener">Mapa de fallas Meta</a> y después el canal de Onboarding Beauty</td></tr>
+      <tr><td>Un cambio en la IA de un cliente</td><td>Iris, lo pide el cliente con «Reportar a Iris»</td></tr>
+      <tr><td>Precio, plan, descuentos o condiciones</td><td>El KAM o quien vendió</td></tr>
+      <tr><td>Capacitación de POS</td><td>Equipo de ProPay</td></tr>
+      <tr><td>Riesgo de churn</td><td>El vendedor, el ingeniero que vio sus últimos tickets y/o Sabrina</td></tr>
+    </table></div></div>
+  </details>
+  <details>
+    <summary>Qué no hacer nunca</summary>
+    <div class="inner"><ul class="plain">
+      <li>Encender la IA desde Cortex: responde mal y la etiqueta «IA activa» bloquea el autoonboarding</li>
+      <li>Entrar a Cortex o tocar el prompt</li>
+      <li>Recibir pedidos de cambio por WhatsApp o pasarlos directo a un ingeniero</li>
+      <li>Prometer personalizaciones, funciones que vienen, plazos o condiciones comerciales</li>
+      <li>Improvisar una respuesta que no está en Preguntas del cliente</li>
+      <li>Dar costos de Meta en pesos o montos de memoria</li>
+      <li>Mirar la pantalla del cliente mientras carga la tarjeta</li>
+      <li>Desvincular o reinstalar WhatsApp Business para probar</li>
+      <li>Dejar la IA en modo forzada sin haberlo conversado</li>
+    </ul></div>
+  </details>
+
+  <div class="pager"><a class="btn dark" href="#preparar">Siguiente: 1. Preparar</a></div>
+</section>
+
+<!-- 1. PREPARAR -->
+<section class="page" id="preparar">
+  <h2>1. Preparar</h2>
+  <p class="lead">Desde la venta hasta que el cliente queda «Listo para capacitar». Tu trabajo aquí es que el cliente avance y que llegues a cada reunión sabiendo en qué está su cuenta.</p>
+
+  <h3>Tus pasos en esta fase</h3>
+  <ol class="steps">
+    <li><strong>1. Recibir al cliente</strong>
+      <p>Te llega un Slack con el cliente asignado. Revisa por qué camino viene: KAM (ya usa AgendaPro y trae el autoonboarding encendido) o ISR (cliente nuevo).</p>
+      <div class="meta"><span>Dónde: Slack y back office de Beauty</span><span>Listo cuando: sabes el camino y qué compró</span></div></li>
+    <li><strong>2. Agendar la primera reunión</strong>
+      <p>ISR: contactas al cliente y agendas la Capacitación SaaS. KAM: no agendas tú; el cliente agenda la Capacitación IA desde Bella al terminar el autoonboarding.</p>
+      <div class="meta"><span>Dónde: Chatwoot o la herramienta de tu equipo, según el país</span><span>Listo cuando: ISR tiene la Capacitación SaaS en el calendario</span></div></li>
+    <li><strong>3. Seguir el autoonboarding</strong>
+      <p>Revisas que avance etapa por etapa. El back office genera alertas con cuánto tiempo lleva el cliente en cada etapa; si está detenido, lo contactas para destrabarlo.</p>
+      <div class="meta"><span>Dónde: back office, Implementaciones</span><span>Listo cuando: el cliente está en «Listo para capacitar»</span></div></li>
+    <li><strong>4. Revisar la cuenta antes de cada reunión</strong>
+      <p>Diez minutos con el checklist de abajo. Si algo no calza con lo que se le vendió, avisas antes de la reunión.</p>
+      <div class="meta"><span>Dónde: back office, Bella y AgendaPro</span><span>Listo cuando: el checklist está completo</span></div></li>
+  </ol>
+
+  <h3>Quién prende el autoonboarding</h3>
+  <div class="tbl"><table>
+    <tr><th>Camino</th><th>Quién</th><th>Cuándo</th></tr>
+    <tr><td>KAM</td><td>El KAM</td><td>Al cerrar la venta, cuando la marca como ganada en el back office</td></tr>
+    <tr><td>ISR</td><td>El onboarder</td><td>Al terminar la Capacitación SaaS, con servicios y profesionales ya configurados</td></tr>
+  </table></div>
+
+  <h3>Lo que hace el cliente solo</h3>
+  <ol class="order">
+    <li><span class="tag">Cliente</span><b>Conecta su WhatsApp a Meta.</b> Necesita computador, el celular del negocio y una tarjeta. Tiene videos y un asistente con los errores comunes. Hoy cerca del 50–60% se conecta solo.</li>
+    <li><span class="tag">Cliente</span><b>Responde el formulario «Conocer tu salón».</b> Cómo se presenta el agente, cómo agenda, qué pide, abonos y recordatorios. El formulario también detecta problemas de la agenda (por ejemplo, solo se agenda un mes a futuro o un servicio con precio 0) y los corrige con un clic.</li>
+    <li><span class="tag">AgendaPro</span><b>«Armamos tu agente».</b> En pantalla dice hasta 5 días: es solo un margen. Si todo sale bien, queda en una hora.</li>
+    <li><span class="tag">Cliente</span><b>Revisa las simulaciones</b> (cerca de 10 conversaciones con clientas inventadas), marca lo que cambiaría y aprueba.</li>
+    <li><span class="tag">Cliente</span><b>Agenda la Capacitación IA</b> con su onboarder, desde Bella.</li>
+  </ol>
+
+  <div class="callout amber"><p><b>Si no logra conectar Meta:</b> te puede escribir por Chatwoot o el canal que esté usando. Después de <b>dos intentos fallidos</b> le aparece un botón para agendar una <b>reunión de conexión</b> contigo. Antes de esa reunión revisa que su Facebook no esté restringido, que tenga rol de administrador en el portafolio y que el WhatsApp sea Business y no esté conectado a otro proveedor.</p></div>
+
+  <h3>Las etapas que ves en Implementaciones</h3>
+  <div class="flow"><span>Conectándose a Meta</span><i>›</i><span>Respondiendo formulario</span><i>›</i><span>Armando simulaciones</span><i>›</i><span>Esperando a la dueña</span><i>›</i><span>Ajustando</span><i>›</i><span class="last">Listo para capacitar</span></div>
+
+  <h3>Herramientas para este paso</h3>
+  <details>
+    <summary>Checklist antes de cualquier reunión · 10 minutos</summary>
+    <div class="inner"><ul class="check">
+      <li><b>Estado en el back office:</b> en qué paso del autoonboarding está y qué marcó en las simulaciones</li>
+      <li><b>Alertas en Bella</b> (Agente IA → Alertas): número conectado, método de pago en Meta y negocio verificado</li>
+      <li><b>Acceso del cliente:</b> el correo y el usuario cargados por ventas están bien y tiene permiso de administrador</li>
+      <li><b>Lo que se le prometió en la venta:</b> la card del cliente (plazos, condiciones especiales, funciones que pidió)</li>
+      <li><b>La tuerca</b> (AgendaPro → tuerca → Configuraciones → Sitio web). Ver la tabla de la Capacitación IA</li>
+      <li><b>WhatsApp Business del celular</b> sin mensaje de bienvenida, ausencia ni otro bot. Si están activos, apagan la IA</li>
+      <li>Que estén <b>todas las personas que contestan el WhatsApp</b> (Capacitación IA) o quien maneja el marketing (Capacitación CRM)</li>
+      <li>Tu teléfono a mano para la prueba en vivo</li>
+      <li>Grabación lista y sala sin ruido</li>
+    </ul></div>
+  </details>
+  <details>
+    <summary>Cómo prende el KAM el autoonboarding (y cómo lo ves tú)</summary>
+    <div class="inner">
+      <p>El KAM marca la venta como <i>ganada</i> en el back office de Beauty (qué compró, fuente, contacto) y prende el autoonboarding. El back office asigna al onboarder según su escalera y le llega un Slack.</p>
+      <p>En el camino ISR nadie marca nada en el back office: la venta queda ganada en Chargebee y HubSpot, el back office crea al cliente y lo asigna según la escala de Company Management.</p>
+    </div>
+  </details>
+
+  <div class="pager"><a class="btn ghost" href="#inicio">Anterior: Inicio</a><a class="btn dark" href="#saas">Siguiente: 2. Capacitación SaaS</a></div>
+</section>
+
+<!-- 2. SAAS -->
+<section class="page" id="saas">
+  <h2>2. Capacitación SaaS</h2>
+  <p class="lead">Solo camino ISR. La primera reunión después de la venta: dejar lo mínimo de la agenda para que la IA pueda funcionar, y que el cliente salga sabiendo qué le toca en el autoonboarding.</p>
+
+  <div class="facts">
+    <div class="fact"><b>Dura</b>60 minutos</div>
+    <div class="fact"><b>Con</b>La dueña o quien administra</div>
+    <div class="fact"><b>Sale con</b>Profesionales, servicios y reglas configurados, la app instalada y el autoonboarding prendido</div>
+  </div>
+
+  <h3>Tus pasos en esta fase</h3>
+  <ol class="steps">
+    <li><strong>5. Dar la Capacitación SaaS</strong>
+      <p>El cliente configura en su pantalla mientras lo guías. Se sigue el orden de abajo.</p>
+      <div class="meta"><span>Dónde: videollamada, el cliente desde el computador</span><span>Listo cuando: profesionales, servicios y tuerca configurados, y la app instalada</span></div></li>
+    <li><strong>6. Prender el autoonboarding</strong>
+      <p>Al terminar la reunión. Con servicios y profesionales configurados, el cliente ya puede partir.</p>
+      <div class="meta"><span>Dónde: back office, Clientes → Todos los clientes</span><span>Listo cuando: al cliente le aparece «Configura tu agente» en Agente IA</span></div></li>
+  </ol>
+
+  <div class="callout amber"><p><b>Sin servicios ni profesionales no hay implementación.</b> Aunque el cliente diga «todavía no tengo mis servicios», se necesita un mínimo: 2 o 3 servicios principales con precio y duración reales, y al menos una profesional con horario.</p></div>
+
+  <h3>Orden de la reunión</h3>
+  <ol class="order">
+    <li><span class="tag">2 min</span><b>Apertura.</b> Te presentas, avisas que se graba, cuentas el camino completo y acuerdas cuánto tiempo hay.</li>
+    <li><span class="tag">Acceso</span><b>El cliente entra desde el computador</b> y comparte pantalla. Desde el celular la configuración se hace muy difícil.</li>
+    <li><span class="tag">5 min</span><b>Conocer el negocio.</b> Cuántas profesionales, si hay recepcionista, por dónde llegan las reservas hoy, <b>qué lo llevó a comprar</b> y qué sistema usaba antes.</li>
+    <li><span class="tag">20–25 min</span><b>Lo mínimo para la IA.</b>
+      <ul>
+        <li><b>Empresa y local:</b> nombre, dirección, teléfono, horario, logo y colores</li>
+        <li><b>Profesionales</b> con horario y servicios que hacen. Diferencia entre profesional y usuario (admin, recepción, staff)</li>
+        <li><b>Servicios</b> con nombre claro, precio y duración reales, quién lo hace y recursos. Si son muchos, el cliente manda un Excel o documento y el onboarder hace la carga masiva</li>
+        <li><b>Reglas de reserva (la tuerca)</b>: anticipación, máximo a futuro, cancelación, reagendamiento y disponibilidad</li>
+      </ul></li>
+    <li><span class="tag">10 min</span><b>Lo esencial del software.</b> Ver, crear y mover citas; <b>anotar al instante a quien llega sin reserva</b> (si no, la IA ofrece esa hora); bloquear horarios y feriados; registrar un pago o abono.</li>
+    <li><span class="tag">Opcional</span><b>Lo que quiera ver el cliente</b>, como comisiones o fidelización. La capacitación de POS la hace ProPay.</li>
+    <li><span class="tag">5 min</span><b>Instalar la app de Bella</b> en vivo, en el celular y el computador del cliente.</li>
+    <li><span class="tag">5 min</span><b>Lo que viene: el autoonboarding.</b> Qué va a encontrar en Agente IA → Configura tu agente: conectar Meta, el formulario («mientras mejor lo respondas, mejor queda tu agente»), armado y simulaciones, y agendar la Capacitación IA. Avisa que Meta cobra los mensajes de plantillas y por eso pide la tarjeta.</li>
+    <li><span class="tag">Cierre</span><b>Repasa sus tareas</b> (terminar servicios, conectar Meta, responder el formulario), <b>prende el autoonboarding</b> y cuéntale que si falla Meta dos veces le aparece el botón para agendar la reunión de conexión.</li>
+  </ol>
+
+  <h3>Herramientas para este paso</h3>
+  <details>
+    <summary>Qué decir al abrir</summary>
+    <div class="inner"><blockquote>«Hoy dejamos lista tu agenda. Después tú conectas tu WhatsApp y respondes un formulario para armar tu agente. Cuando esté listo, hacemos la capacitación de IA y la encendemos. Una semana después vemos el CRM: plantillas y recordatorios.»</blockquote></div>
+  </details>
+  <details>
+    <summary>Prender el autoonboarding, paso a paso</summary>
+    <div class="inner"><ol class="order">
+      <li>Entra al back office y ve a <b>Clientes</b></li>
+      <li>Entra a <b>Todos los clientes</b></li>
+      <li>Ingresa el <b>ID</b> del comercio</li>
+      <li>En la tabla, selecciona al cliente</li>
+      <li>Presiona <b>«Prender autoonboarding»</b> y espera unos segundos</li>
+    </ol></div>
+  </details>
+  <details>
+    <summary>Instalar la app de Bella</summary>
+    <div class="inner"><ul class="plain">
+      <li>Abrir <a href="https://merchant.agendapro.com/" target="_blank" rel="noopener">merchant.agendapro.com</a> en Chrome o Safari</li>
+      <li>Computador: ícono «Instalar» en la barra de direcciones</li>
+      <li>Celular con Chrome: menú ⋮ → «Instalar app» o «Agregar a pantalla de inicio». Con Safari: Compartir → «Agregar a inicio»</li>
+      <li>Abrir la app desde el ícono e iniciar sesión. En la Capacitación IA solo se activan las notificaciones</li>
+    </ul></div>
+  </details>
+
+  <div class="pager"><a class="btn ghost" href="#preparar">Anterior: 1. Preparar</a><a class="btn dark" href="#ia">Siguiente: 3. Capacitación IA</a></div>
+</section>
+
+<!-- 3. IA -->
+<section class="page" id="ia">
+  <h2>3. Capacitación IA y encendido</h2>
+  <p class="lead">Primera reunión del cliente KAM, segunda del ISR. Al terminar, el equipo usa Bella con confianza y la IA queda respondiendo.</p>
+
+  <div class="facts">
+    <div class="fact"><b>Cuándo</b>KAM: cuando está «Listo para capacitar». ISR: después de la SaaS y el autoonboarding</div>
+    <div class="fact"><b>Dura</b>60 minutos aprox.</div>
+    <div class="fact"><b>Con</b>Quien administra y <strong>todas las personas que contestan el WhatsApp</strong></div>
+    <div class="fact"><b>Sale con</b>IA encendida, prueba en vivo, app instalada y Capacitación CRM agendada</div>
+  </div>
+
+  <h3>Tus pasos en esta fase</h3>
+  <ol class="steps">
+    <li><strong>7. Revisar la tuerca</strong>
+      <p>Antes de la reunión. Si los valores están en lo recomendado o cerca, no hace falta hablarlo. Si no, se confirma con el cliente explicando qué provoca cada valor. Si el cliente ya decidió otro, se respeta.</p>
+      <div class="meta"><span>Dónde: AgendaPro → tuerca → Configuraciones → Sitio web</span><span>Listo cuando: valores recomendados o confirmados con el cliente</span></div></li>
+    <li><strong>8. Capacitar y encender</strong>
+      <p>Se sigue el menú de Bella: Conexiones primero, el encendido al final e Iris al cierre. El cliente comparte pantalla y navega él.</p>
+      <div class="meta"><span>Dónde: Bella</span><span>Listo cuando: la IA responde en heredada, la prueba salió y la Capacitación CRM está agendada</span></div></li>
+  </ol>
+
+  <h3>La tuerca: qué revisar</h3>
+  <div class="tbl"><table>
+    <tr><th>Qué revisar</th><th>Recomendado</th><th>Qué provoca en la IA</th></tr>
+    <tr><td>Anticipación mínima</td><td>0 (o lo que pida el comercio)</td><td>Con 6 horas, la IA no ofrece las horas libres de hoy</td></tr>
+    <tr><td>Cancelación</td><td>0</td><td>Si no se puede cancelar, la IA dice «no puedo modificar tu hora» y la hora no se libera</td></tr>
+    <tr><td>Reagendamiento</td><td>0</td><td>Con límites, la IA no puede reagendar dentro de ese plazo</td></tr>
+    <tr><td>Tiempo máximo a futuro</td><td>Según el negocio (ej. 3 meses)</td><td>Con 1 mes, la IA no ofrece fechas más lejanas</td></tr>
+    <tr><td>Modo de disponibilidad</td><td>Por disponibilidad de la agenda</td><td>«Por duración del servicio» deja huecos y la IA no da toda la disponibilidad</td></tr>
+    <tr><td>Bloques predefinidos</td><td>Solo si el comercio los pide</td><td>Para quien quiere horas «cuadradas» (10:00, 10:30, nunca 10:45)</td></tr>
+  </table></div>
+
+  <h3>Orden de la reunión</h3>
+  <ol class="order">
+    <li><span class="tag">Apertura</span><b>Qué van a ver y que al final la IA queda respondiendo.</b> Si viene con algo de las simulaciones, se resuelve primero o se deja pedido por Iris frente a él. Funciona muy bien abrir con una conversación real anonimizada de otro comercio donde la IA pide fotos, cotiza «desde» y agenda.</li>
+    <li><span class="tag">Conexiones</span><b>La puerta de entrada.</b> Canales conectados (WhatsApp; Instagram y Facebook después) y los tres modos. Siguen usando WhatsApp Business en el teléfono. Si alguien responde desde ahí, la IA se apaga en ese chat. <b>No desvincular ni reinstalar WhatsApp Business.</b> La IA puede responder 24/7 (recomendado) o en el horario que defina el comercio.</li>
+    <li><span class="tag">Inicio y Alertas</span><b>Inicio</b> resume lo que hace la IA y parte en cero. <b>Alertas</b> muestra lo que la interfiere: bloquean el número desconectado y la falta de método de pago; no bloquea el negocio sin verificar. Si se carga la tarjeta, <b>sin compartir pantalla</b>.</li>
+    <li><span class="tag">Chats</span><b>Quién está respondiendo.</b> Borde morado y estrellita: atiende la IA. Foto apagada con ícono de persona: atiende el equipo. Escaladas arriba y en rojo. Los mensajes de la IA son claros y tienen «Reportar a Iris».</li>
+    <li><span class="tag">En vivo</span><b>Tomar y devolver el control</b>, escribiendo desde tu teléfono.
+      <ul>
+        <li><b>Intervenir</b> apaga la IA en ese chat. Escribir desde el teléfono también</li>
+        <li><b>Estrellita</b> le devuelve el chat a la IA, que responde solo lo nuevo</li>
+        <li><b>Tres puntitos → Silenciar número</b> para contactos que no deben hablar con la IA. Se revierte con «Dejar de silenciar»</li>
+        <li><b>Escalados:</b> escalar no apaga la IA; el chat queda en «Requiere atención» y llega el aviso. La IA se calla solo si alguien del equipo responde. «Marcar como atendido» quita la marca y devuelve el chat a la IA</li>
+        <li>Leer un chat no apaga la IA. Solo la apaga un mensaje de una persona</li>
+      </ul></li>
+    <li><span class="tag">Tu agente</span><b>Imágenes y preguntas frecuentes.</b> Ofrece subir al menos la lista de precios. Las FAQ son lo que la IA responde cuando algo no está en el formulario. Si no aparecen las imágenes, pídelo al canal de Onboarding Beauty.</li>
+    <li><span class="tag">Simulador</span><b>Para probar como clienta cada vez que se cambie algo.</b> Las citas del simulador quedan en la agenda real: hay que anularlas.</li>
+    <li><span class="tag">Obligatorio</span><b>Instalar la app de Bella en el teléfono</b> de quien va a operar la IA y, si se puede, de cada persona del equipo. Si viene de ISR, se revisa que esté y se activan las notificaciones.</li>
+    <li><span class="tag">Al final</span><b>Encender y prueba en vivo</b> con la secuencia fija de abajo. Si se enciende al inicio y la primera conversación sale mal, se pierde el resto de la capacitación.</li>
+    <li><span class="tag">Iris</span><b>Reportar a Iris en vivo.</b> El cliente aprieta «Reportar a Iris» sobre un mensaje y llena cuál fue el error y qué respuesta habría querido. Se puede desde Bella o desde la app. Iris es el soporte de AgendaPro: toda duda y todo cambio van por ahí.</li>
+    <li><span class="tag">Cierre</span><b>Expectativas y tareas.</b> Agendar la Capacitación CRM en la misma llamada y pedirle que piense un mensaje de plantilla.</li>
+  </ol>
+
+  <div class="callout"><p><b>Si el equipo no sabe que la IA está encendida, se asusta y la apaga.</b> Por eso tienen que estar todas las personas que contestan el WhatsApp. Conviene encender de lunes a jueves para acompañar la semana.</p></div>
+
+  <h3>Herramientas para este paso</h3>
+  <details>
+    <summary>Los tres modos de la IA</summary>
+    <div class="inner"><div class="tbl"><table>
+      <tr><th>Modo</th><th>Qué hace</th><th>Cuándo</th></tr>
+      <tr><td>Heredada (siempre)</td><td>La IA responde. Si una persona responde en un chat, la IA se apaga en ese chat</td><td>El día a día</td></tr>
+      <tr><td>Forzada</td><td>Responde siempre, aunque conteste una persona. La clienta recibe mensajes dobles</td><td>Solo en casos puntuales y conversados</td></tr>
+      <tr><td>Apagada</td><td>No responde nada</td><td>Si el comercio la quiere detener</td></tr>
+    </table></div></div>
+  </details>
+  <details>
+    <summary>Encender: secuencia fija</summary>
+    <div class="inner"><ol class="order">
+      <li>Confirmar que no hay mensaje de bienvenida ni de ausencia en WhatsApp Business</li>
+      <li>Confirmar que no quedan ajustes de simulaciones sin aplicar. Si quedan, decidir con el cliente si se enciende igual o se programa</li>
+      <li>Decidir: solo conversaciones nuevas (lo habitual) o también las anteriores</li>
+      <li>Encender en <b>modo heredada</b> y confirmar que <b>Iris quedó habilitada</b></li>
+      <li>Prueba en vivo: escribir desde tu teléfono al WhatsApp del comercio, avisando antes a recepción</li>
+      <li>Mostrar la respuesta en Bella, en la app y en su WhatsApp</li>
+    </ol>
+    <p>Si el cliente prefiere encender otro día («el lunes a las 9, así aviso a las chicas»), se programa.</p></div>
+  </details>
+  <details>
+    <summary>Instalar la app de Bella: iPhone y Android</summary>
+    <div class="inner"><div class="tbl"><table>
+      <tr><th></th><th>iPhone</th><th>Android</th></tr>
+      <tr><td>1</td><td>Abrir Bella en Safari o Chrome</td><td>Abrir Bella en Chrome o Safari</td></tr>
+      <tr><td>2</td><td>Tocar Compartir (cuadrado con flecha)</td><td>Menú ⋮ arriba a la derecha</td></tr>
+      <tr><td>3</td><td>«Agregar a inicio». Si no aparece, bajar o «Editar acciones»</td><td>«Instalar app» o «Agregar a pantalla de inicio»</td></tr>
+      <tr><td>4</td><td>Confirmar con «Agregar»</td><td>Confirmar</td></tr>
+      <tr><td>5</td><td>Abrir desde el ícono e iniciar sesión</td><td>Igual</td></tr>
+      <tr><td>6</td><td>Configuración → Notificaciones → Activar y enviar la prueba</td><td>Igual</td></tr>
+    </table></div>
+    <ul class="plain">
+      <li>No está en App Store ni Google Play: se instala desde el navegador</li>
+      <li>En iPhone, las notificaciones necesitan la app en la pantalla de inicio e iOS 16.4 o superior</li>
+      <li>Muestra en la app lo mismo que en Bella. «Enséñales cómo ellos lo van a ver, no cómo lo ves tú»</li>
+    </ul></div>
+  </details>
+  <details>
+    <summary>Qué decir al cerrar</summary>
+    <div class="inner">
+      <blockquote>«Esta es la versión 1 de tu agente. Las primeras dos semanas son de ajuste: van a aparecer cosas para corregir y eso es normal.»</blockquote>
+      <blockquote>«No apagues la IA si algo no te gusta: repórtalo a Iris. Si la apagas, mejoramos más lento.»</blockquote>
+      <blockquote>«¿Podrías ir pensando un mensaje de plantilla que quisieras enviar? Así en la próxima capacitación lo creamos juntos.»</blockquote>
+      <ul class="plain">
+        <li>Revisar los chats todos los días la primera semana y marcar como atendidos los escalados</li>
+        <li>Avisar a todo el equipo que la IA está encendida</li>
+        <li><b>Recordatorios:</b> al activar la IA se dan de baja los recordatorios de WhatsApp de AgendaPro. Definir quién recuerda las citas hasta la Capacitación CRM, o armar ese día el primer recordatorio</li>
+      </ul>
+    </div>
+  </details>
+  <details>
+    <summary>Lista para cerrar la sesión</summary>
+    <div class="inner"><p>Si falta uno, la capacitación quedó incompleta.</p><ul class="check">
+      <li>Tuerca revisada antes y confirmada con el cliente</li>
+      <li>Los tres modos y la coexistencia con el celular</li>
+      <li>Los colores de los chats</li>
+      <li>Intervenir, estrellita y «Marcar como atendido»</li>
+      <li>Tres puntitos: silenciar número</li>
+      <li><b>App instalada en el teléfono y notificaciones activadas</b></li>
+      <li>IA encendida en heredada (si el cliente quiere), con Iris habilitada</li>
+      <li>Prueba en vivo desde otro teléfono</li>
+      <li>Reportar a Iris hecho por el cliente</li>
+      <li>Equipo avisado y Capacitación CRM agendada</li>
+      <li>Cliente con la tarea de pensar un mensaje de plantilla</li>
+      <li>Sección ofertas y promociones</li>
+    </ul></div>
+  </details>
+
+  <div class="pager"><a class="btn ghost" href="#saas">Anterior: 2. Capacitación SaaS</a><a class="btn dark" href="#crm">Siguiente: 4. Capacitación CRM</a></div>
+</section>
+
+<!-- 4. CRM -->
+<section class="page" id="crm">
+  <h2>4. Capacitación CRM</h2>
+  <p class="lead">Cerca de una semana después de encender. Que el comercio arme solo sus plantillas, segmentos y automatizaciones.</p>
+
+  <div class="facts">
+    <div class="fact"><b>Dura</b>Cerca de una hora</div>
+    <div class="fact"><b>Con</b>La dueña o quien maneja el marketing</div>
+    <div class="fact"><b>Sale con</b>Un recordatorio de punta a punta, o una campaña lista para activarse cuando Meta apruebe</div>
+  </div>
+
+  <h3>Tus pasos en esta fase</h3>
+  <ol class="steps">
+    <li><strong>9. Revisar la semana de IA</strong>
+      <p>El cliente llega con una semana de IA y lo que falló lo va a sacar. Lees algunos chats, escaladas sin atender, casos abiertos en Iris, alertas, tuerca y el estado de las plantillas que le dejamos.</p>
+      <div class="meta"><span>Dónde: Bella, Iris y AgendaPro</span><span>Listo cuando: sabes qué falló y en qué estado están sus plantillas</span></div></li>
+    <li><strong>10. Dar la Capacitación CRM</strong>
+      <p>Se comparte pantalla y se recorre el menú Clientes, partiendo por las plantillas.</p>
+      <div class="meta"><span>Dónde: Bella, menú Clientes</span><span>Listo cuando: plantilla → segmento → automatización armado por el cliente</span></div></li>
+  </ol>
+
+  <div class="callout amber"><p><b>Primero lo que trae el cliente.</b> Si trae un problema de la IA, se resuelve primero o se deja pedido por Iris frente a él. Un problema sin resolver se come la reunión.</p></div>
+
+  <h3>Orden de la reunión</h3>
+  <p>Se parte por las plantillas, que es lo que el cliente viene a ver. Si llega preguntando por anuncios o recordatorios, se parte por ahí.</p>
+  <ol class="order">
+    <li><span class="tag">Plantillas</span><b>Parte por el mensaje que el cliente trae pensado</b> y créalo con él. Muestra las que le dejamos, cómo editarlas (encabezado, cuerpo, variables, botones) y sus estados. Crea en vivo un recordatorio y una de recuperación de clientas.
+      <ul>
+        <li><b>Utilidad</b> se aprueba más rápido (minutos a 48 horas) y cuesta menos que Marketing. <b>La categoría la decide Meta</b> según el contenido</li>
+        <li>Cuidado con «hora de la última cita» y «hora de la próxima reserva»</li>
+        <li>Para redactarlas: pegar un ejemplo en ChatGPT o Claude y pedir que lo mejore</li>
+        <li>Meta cobra cada envío</li>
+      </ul></li>
+    <li><span class="tag">Segmentos</span><b>Filtran la base.</b> Para confirmación, recordatorio y después de la visita se usan los segmentos predeterminados. Para cumpleaños, retoque o recuperación se crea uno nuevo.</li>
+    <li><span class="tag">Automatizaciones</span><b>Sobre un segmento y solo con plantillas aprobadas.</b> Recordatorio de 1 día y de 2 horas antes con plantillas distintas. Frecuencia, hora (12:00 funciona para campañas) y qué hace la IA si la clienta responde. Si las plantillas siguen en revisión, se deja armado y en pausa. «Ver ejecuciones» muestra enviados, pendientes y omitidos.</li>
+    <li><span class="tag">Anuncios</span><b>Enlazar el ID del anuncio de Meta o Google.</b> Servicios, vigencia y comportamiento de la IA. Recomendado: modo abierto. El modo guiado por prompt se pide al canal de Onboarding Beauty.</li>
+    <li><span class="tag">Pipeline</span><b>Todos vienen con el mismo pipeline por defecto;</b> el onboarder no lo configura. Se muestra cómo leerlo y que el cliente cambia las reglas en CRM → Reglas. Lo único manual es marcar la asistencia en la agenda.</li>
+    <li><span class="tag">Ajustes</span><b>Límites de envío</b> que se pueden modificar (ver abajo). Revisa con el cliente el horario sin envíos.</li>
+    <li><span class="tag">Según el cliente</span><b>Dashboard.</b> Reservas, tasa de atención de la IA, ocupación, clientas nuevas y origen. El mapa de calor muestra horas bajas para campañas. Las citas de simulaciones pueden ensuciar los primeros datos.</li>
+    <li><span class="tag">Cierre</span><b>Cómo va a ver el resultado:</b> «Ver ejecuciones», respuestas y reservas de la campaña. Sin esto, el cliente no cree en los números. Dudas y cambios por Iris.</li>
+  </ol>
+  <blockquote>«La plantilla por sí sola no hace ninguna magia: hay que conectarla a un recordatorio o a un segmento.»</blockquote>
+
+  <h3>Herramientas para este paso</h3>
+  <details>
+    <summary>Recetas de segmentos y automatizaciones</summary>
+    <div class="inner"><div class="tbl"><table>
+      <tr><th>Receta</th><th>Cómo se arma</th></tr>
+      <tr><td>Dormidas</td><td>«Última cita asistida <i>exactamente</i> hace 30–35 días» + «próxima reserva: no»</td></tr>
+      <tr><td>Clientas nuevas</td><td>«Citas totales máximo 1» + «asistió en los últimos 10 días»</td></tr>
+      <tr><td>Confirman por correo</td><td>Un aviso 1 hora antes para todas, porque quien confirma por correo no recibe nada más</td></tr>
+    </table></div></div>
+  </details>
+  <details>
+    <summary>Ajustes que se pueden cambiar</summary>
+    <div class="inner"><div class="tbl"><table>
+      <tr><th>Ajuste</th><th>Por defecto</th><th>Ojo</th></tr>
+      <tr><td>Misma plantilla a una clienta</td><td>Máximo una vez cada 7 días</td><td>Evita el bloqueo por spam. No es un «envío único para siempre»</td></tr>
+      <tr><td>Tope diario de mensajes</td><td>1.000</td><td>Ampliable</td></tr>
+      <tr><td>Horario sin envíos</td><td>23:00 a 10:00</td><td>Si el local abre a las 9 y hay recordatorios 24 o 3 horas antes, las clientas temprano no lo reciben. Ajustarlo con el cliente</td></tr>
+    </table></div></div>
+  </details>
+  <details>
+    <summary>Lista para cerrar la sesión</summary>
+    <div class="inner"><ul class="check">
+      <li>IA revisada antes: chats, escaladas, alertas y tuerca</li>
+      <li>Cómo editar una plantilla y sus variables</li>
+      <li>Un recordatorio armado: plantilla → segmento → automatización</li>
+      <li>Meta cobra cada envío (Utilidad más barata que Marketing)</li>
+      <li>Límite de 7 días y horario sin envíos ajustado</li>
+      <li>Cómo ver el resultado</li>
+      <li>Dudas por Iris</li>
+    </ul></div>
+  </details>
+
+  <div class="pager"><a class="btn ghost" href="#ia">Anterior: 3. Capacitación IA</a><a class="btn dark" href="#acompanar">Siguiente: 5. Acompañar</a></div>
+</section>
+
+<!-- 5. ACOMPAÑAR -->
+<section class="page" id="acompanar">
+  <h2>5. Acompañar</h2>
+  <p class="lead">El periodo de onboarding dura 10 semanas. Después de la implementación viene el periodo de ajustes: estás al tanto de tus clientes y te fijas en que estén bien.</p>
+
+  <h3>Tus pasos en esta fase</h3>
+  <ol class="steps">
+    <li><strong>11. Estar al tanto en el periodo de ajustes</strong>
+      <p>No hay más reuniones fijas. Los pedidos de cambio de la IA siguen yendo por Iris y los resuelve Iris o un ingeniero.</p>
+      <div class="meta"><span>Dónde: back office e Iris</span><span>Listo cuando: se cumplen las 10 semanas de onboarding</span></div></li>
+    <li><strong>12. Atacar el riesgo de churn</strong>
+      <p>Si ves riesgo de churn, te pones en contacto con el vendedor, con el ingeniero que vio sus últimos tickets y/o con Sabrina para abordar el caso.</p>
+      <div class="meta"><span>Dónde: Slack</span><span>Listo cuando: el caso quedó abordado con quien corresponde</span></div></li>
+  </ol>
+
+  <div class="callout blue"><p><b>Fuera de las capacitaciones no hablamos con el cliente.</b> Las excepciones son la conexión a Meta, un autoonboarding detenido y el riesgo de churn durante el periodo de ajustes. Lo que pida después del encendido es un ticket de Iris.</p></div>
+
+  <h3>Si un error vuelve a pasar</h3>
+  <div class="tbl"><table>
+    <tr><th>Cuándo</th><th>Qué se hace</th></tr>
+    <tr><td>Vuelve a pasar algo ya reportado</td><td>El cliente lo reporta de nuevo con «Reportar a Iris» sobre el chat nuevo. Iris lo suma al caso abierto o abre uno ligado al anterior. El ejemplo nuevo es lo que más sirve</td></tr>
+    <tr><td>Sigue pasando en las dos semanas de ajuste</td><td>Lo llevas al canal de Onboarding Beauty con el ID del comercio y el número de la solicitud</td></tr>
+    <tr><td>El cliente quiere seguir el caso</td><td>Lo ve en Soporte, donde cada solicitud tiene su conversación con el equipo</td></tr>
+  </table></div>
+  <p class="meta">No decir «ya está reportado, no hace falta». No pasarlo por WhatsApp a un ingeniero.</p>
+
+  <div class="pager"><a class="btn ghost" href="#crm">Anterior: 4. Capacitación CRM</a><a class="btn dark" href="#atender">Siguiente: Cómo atendemos</a></div>
+</section>
+
+<!-- CÓMO ATENDEMOS -->
+<section class="page" id="atender">
+  <h2>Cómo atendemos</h2>
+  <p class="lead">Vale para todas las reuniones. Para Beauty, la experiencia del cliente es lo más importante.</p>
+  <ol class="steps">
+    <li><strong>Confianza</strong><p>La tecnología es nueva para el cliente. Aunque seas nuevo, habla con seguridad. Si no sabes algo: «Esto lo acaban de subir, lo reviso y te confirmo hoy». Y lo confirmas.</p></li>
+    <li><strong>Amabilidad</strong><p>Nunca partir con un no. Siempre «déjame ver qué puedo hacer». Si al final es no, se dice con amabilidad y explicando por qué.</p></li>
+    <li><strong>Empatía</strong><p>La dueña está entregando la atención de sus clientas a algo nuevo. Escucha sus miedos y dudas antes de seguir con el recorrido.</p></li>
+    <li><strong>Una sola versión</strong><p>Si una respuesta no está en Preguntas del cliente, no la improvises: confírmala primero. Hoy el problema más grande de las grabaciones es que cada onboarder dice algo distinto.</p></li>
+    <li><strong>El orden es una guía, no un guion</strong><p>Adáptalo a lo que pregunte el cliente.</p></li>
+    <li><strong>No anuncies una duración fija</strong><p>Si tienes otra reunión después, avísalo al empezar: «Tengo hasta las 11:00, así que vamos directo a lo importante».</p></li>
+    <li><strong>Grabación</strong><p>Todas las capacitaciones se graban y se revisan para mejorar el proceso.</p></li>
+  </ol>
+  <div class="pager"><a class="btn ghost" href="#acompanar">Anterior: 5. Acompañar</a><a class="btn dark" href="#pedir">Siguiente: Cómo pedir cosas</a></div>
+</section>
+
+<!-- CÓMO PEDIR COSAS -->
+<section class="page" id="pedir">
+  <h2>Cómo pedir cosas</h2>
+  <p class="lead">Busca a la izquierda lo que quiere el cliente. A la derecha está dónde se hace.</p>
+  <div class="tbl"><table>
+    <tr><th>El cliente quiere</th><th>Dónde</th></tr>
+    <tr><td>Corregir una respuesta de la IA</td><td>«Reportar a Iris» bajo el mensaje, en Bella o en la app</td></tr>
+    <tr><td>Una duda o un cambio general del agente</td><td>Iris. Si Iris no puede, crea un caso para un ingeniero</td></tr>
+    <tr><td>Cambiar precios o la duración de un servicio, o sumar, cambiar o desactivar una profesional</td><td>Lo hace él en la agenda; se actualiza solo</td></tr>
+    <tr><td>Crear o eliminar un servicio, o abrir una sede</td><td>Lo carga en la agenda y lo informa por Iris (por ahora)</td></tr>
+    <tr><td>Cambiar las reglas del pipeline</td><td>Él mismo en CRM → Reglas. Si no sabe, por Iris</td></tr>
+    <tr><td>Sacar a una clienta de un segmento</td><td>Hoy no se puede a mano. Se pide por Iris</td></tr>
+    <tr><td>Imágenes, CRM o Iris que no aparecen</td><td>El onboarder lo pide al canal de Onboarding Beauty</td></tr>
+    <tr><td>Un prompt para anuncios en modo guiado</td><td>Canal de Onboarding Beauty</td></tr>
+    <tr><td>Una personalización o función nueva</td><td>Canal de Onboarding Beauty. Sin promesa hasta que se confirme</td></tr>
+    <tr><td>Descuentos, devoluciones o condiciones</td><td>El KAM que vendió</td></tr>
+    <tr><td>Capacitación de POS</td><td>Equipo de ProPay</td></tr>
+  </table></div>
+
+  <h3>Un buen reporte y uno malo</h3>
+  <div class="duo">
+    <div><h4>Reporte que sirve</h4><p>«Cuando una clienta pregunta por un color, la IA dio un precio fijo. Queríamos que pida una foto del pelo actual y cotice "desde".» Dice cuál fue el error y qué respuesta habría querido.</p></div>
+    <div><h4>Reporte que no sirve</h4><p>«La IA responde mal.» Falta qué dijo, qué esperaban y en qué chat.</p></div>
+  </div>
+
+  <h3>Formato para llevar un caso al canal de Onboarding Beauty</h3>
+  <div class="codewrap"><pre>Comercio y ID:
+Número de la solicitud en Iris:
+Qué pasó o qué pide el cliente:
+Qué esperaba:
+Chat, fecha y hora:
+¿Ya se reportó a Iris? ¿Cuántas veces?
+¿Afecta a clientas ahora?</pre><button class="copy">Copiar</button></div>
+
+  <div class="pager"><a class="btn ghost" href="#atender">Anterior: Cómo atendemos</a><a class="btn dark" href="#preguntas">Siguiente: Preguntas del cliente</a></div>
+</section>
+
+<!-- PREGUNTAS -->
+<section class="page qa" id="preguntas">
+  <h2>Preguntas del cliente</h2>
+  <p class="lead">Qué responder cuando preguntan. Si no está aquí, se confirma antes de responder. Fuente: <a href="https://app.notion.com/p/417ab34c233b810a9a47f90125a17f25" target="_blank" rel="noopener">Onboarding Beauty · Preguntas y respuestas</a>.</p>
+
+  <h3>La IA: qué hace y qué no</h3>
+  <details><summary>¿Qué hace la IA?</summary><div class="inner"><p>Responde 24/7 por WhatsApp (e Instagram si se conecta) con el nombre y el tono que eligió el comercio. Lee fotos y audios, cotiza, agenda, reagenda y cancela, registra a la clienta nueva y ofrece servicios adicionales. Lo que no puede resolver (un pago, un diagnóstico, una devolución) lo escala al equipo.</p></div></details>
+  <details><summary>¿Es lo mismo que Julia o Sofía?</summary><div class="inner"><p>No. Julia antigua solo aseguraba la reserva. La IA de hoy está armada para cada rubro y cada comercio con su formulario: pide fotos, distingue una foto de referencia de una del pelo actual, cotiza «desde» y hace upselling.</p></div></details>
+  <details><summary>¿La IA aprende sola?</summary><div class="inner"><p>No. Se arma con lo que el comercio respondió en el formulario y mejora con los ajustes que pide por Iris.</p><p class="nodecir">No decir: «déjala una hora para que se vaya alimentando».</p></div></details>
+  <details><summary>¿Manda audios?</summary><div class="inner"><p>Los escucha y responde, pero no los manda.</p></div></details>
+  <details><summary>¿Responde los comentarios de Instagram?</summary><div class="inner"><p>Solo los que traen una palabra clave que elige el comercio, configurada en Campañas → Instagram. Responde en público y manda un privado; desde ahí sigue hasta agendar. Necesita Instagram profesional y público. Si se conectó antes de mediados de septiembre, hay que reconectarlo. Es nueva: avisar al canal de Onboarding Beauty para acompañar la primera campaña.</p><p class="nodecir">No decir: que responde cualquier comentario, anuncios pagados o menciones en historias.</p></div></details>
+  <details><summary>¿Sabe el historial de la clienta?</summary><div class="inner"><p>Ve su última cita completada para ofrecerle repetirla y sus próximas citas para reagendar o cancelar. No ve todo el historial.</p></div></details>
+  <details><summary>¿Reparte las reservas de forma pareja entre profesionales?</summary><div class="inner"><p>Se le puede dar una regla de asignación en el formulario. Antes de prometer una regla específica, se confirma.</p></div></details>
+  <details><summary>¿Puede hacer seguimiento por su cuenta a una clienta?</summary><div class="inner"><p>La IA responde. Para iniciar una conversación se necesita una plantilla de Meta, que se arma en el CRM.</p></div></details>
+
+  <h3>Encendido y convivencia con la IA</h3>
+  <details><summary>Si escribo yo en un chat, ¿la IA se apaga en todos?</summary><div class="inner"><p>No. Solo en ese chat, y solo en modo heredada.</p></div></details>
+  <details><summary>¿Y después vuelve sola?</summary><div class="inner"><p>Sí. Si el chat pasa unas 25 horas sin mensajes de nadie, vuelve sola. También vuelve si le llega un recordatorio. Para que vuelva antes, se activa desde Bella.</p><p class="nodecir">No decir: que depende de las 24 horas de Meta.</p></div></details>
+  <details><summary>¿Puedo seguir usando WhatsApp Business en el teléfono?</summary><div class="inner"><p>Sí, en el teléfono, en WhatsApp Web y en el computador. Responder desde el teléfono apaga la IA en ese chat igual que Intervenir. No hay que desvincular ni reinstalar WhatsApp Business.</p></div></details>
+  <details><summary>¿Tengo que usar el teléfono para que Meta no me desconecte?</summary><div class="inner"><p>Sí. Abrir WhatsApp Business al menos una vez por semana. Si pasan unos 14 días sin usarla, Meta puede desconectar el número.</p></div></details>
+  <details><summary>¿Cómo apago la IA para mi marido, la secretaria o un proveedor?</summary><div class="inner"><p>En el chat, tres puntitos → Silenciar número. Se revierte con «Dejar de silenciar». También desde la app.</p></div></details>
+  <details><summary>¿Puedo hacer que responda solo de 8 a 20?</summary><div class="inner"><p>Sí. Puede responder 24/7 (recomendado) o en el horario que defina el comercio, y se puede cambiar.</p></div></details>
+  <details><summary>¿Por qué la IA no respondió?</summary><div class="inner"><ol class="order">
+    <li>Mensaje de bienvenida o ausencia activo en WhatsApp Business</li>
+    <li>Fuera del horario de la IA</li>
+    <li>Alguien respondió desde el teléfono o desde Bella</li>
+    <li>El número está silenciado</li>
+    <li>El modo está en apagada</li>
+    <li>Alertas de conexión o de pago</li>
+    <li>El plan está al tope de conversaciones</li>
+    <li>Hay una lista de números permitidos y ese número no está</li>
+  </ol></div></details>
+  <details><summary>Me da miedo que se equivoque. ¿La apago?</summary><div class="inner"><p>«No la apagues: repórtalo a Iris. Si la apagas, mejoramos más lento.» Las primeras dos semanas son de ajuste.</p></div></details>
+
+  <h3>Chats, escalamientos e Iris</h3>
+  <details><summary>¿Cómo sé cuándo tengo que intervenir?</summary><div class="inner"><p>Con el filtro «Requiere atención» y con las notificaciones de la app, que avisan de escalamientos y reservas.</p></div></details>
+  <details><summary>¿Qué pasa si no marco un chat escalado como atendido?</summary><div class="inner"><p>Escalar no apaga la IA: el chat queda en «Requiere atención» y llega el aviso. La IA se calla solo si alguien del equipo responde. «Marcar como atendido» quita la marca y devuelve el chat a la IA.</p><p class="nodecir">No decir: que mientras esté escalado la IA no responde.</p></div></details>
+  <details><summary>¿Qué es Iris?</summary><div class="inner"><p>El soporte de AgendaPro, no la IA que habla con las clientas. Los cambios simples los hace sola, con algo de demora. Si no puede, crea un caso para un ingeniero.</p><p class="nodecir">No decir: «Iris resuelve todo automático».</p></div></details>
+  <details><summary>¿Tengo un ingeniero asignado o un grupo de WhatsApp?</summary><div class="inner"><p>No. Todo pedido queda registrado en Iris y lo resuelve quien sabe del tema.</p></div></details>
+
+  <h3>WhatsApp, Meta y costos</h3>
+  <details><summary>¿Para qué es la tarjeta si ya pagué?</summary><div class="inner"><p>Lo que paga a AgendaPro es la IA. Meta cobra aparte los mensajes de plantillas (recordatorios, campañas). Sin método de pago no salen las plantillas.</p></div></details>
+  <details><summary>¿Qué cobra Meta?</summary><div class="inner">
+    <div class="callout blue"><p><b>Los costos de Meta se dicen siempre en dólares.</b> No se dan montos de memoria.</p></div>
+    <div class="tbl"><table>
+      <tr><th>Tipo</th><th>Qué es</th><th>Quién paga</th></tr>
+      <tr><td>Marketing</td><td>Campañas y promociones. El más caro (Chile, cerca de US$0,08)</td><td>El comercio</td></tr>
+      <tr><td>Utilidad</td><td>Recordatorios y confirmaciones (Chile, cerca de US$0,02)</td><td>El comercio</td></tr>
+      <tr><td>Servicio</td><td>Lo que responde la IA y lo que se escribe desde Bella. Primeros 1.000 al mes por número gratis</td><td>AgendaPro hasta el 31-dic-2026, con nota de crédito</td></tr>
+    </table></div>
+    <p>Lo que se escribe desde el WhatsApp del teléfono no lo cobra Meta. Desde enero de 2027 se comunicará por correo en diciembre: no prometer nada.</p></div></details>
+  <details><summary>¿Tengo que verificar mi negocio en Meta?</summary><div class="inner"><p>No es requisito para conectar ni para que la IA funcione. Verificar sube el límite de mensajes diarios (sin verificar, unos 250), muestra el nombre del negocio y protege contra bloqueos.</p></div></details>
+  <details><summary>¿Cuántos números puedo conectar?</summary><div class="inner"><p>Más de uno, por ejemplo uno por sucursal, cada uno por separado. Meta permite 2 al inicio y 20 con el negocio verificado. Antes de comprometer una cantidad, se confirma.</p><p class="nodecir">No decir: «hasta 3».</p></div></details>
+  <details><summary>Me bloquearon el WhatsApp</summary><div class="inner"><p>Si aparece «Solicitar revisión», tocarlo: la mayoría responde en menos de 24 horas. No reinstalar, no cambiar de teléfono ni reconectar. Mandar captura con motivo y duración, y se gestiona con Meta.</p></div></details>
+  <details><summary>¿Cómo se cobra la IA?</summary><div class="inner"><p>Por tramo de citas al mes, distinto por rubro y país. No tiene permanencia ni prueba gratis. Si pregunta qué reservas cuenta el tramo o cada cuánto se revisa, se confirma con su KAM.</p></div></details>
+
+  <h3>Agenda, abonos y CRM</h3>
+  <details><summary>La IA dice que no hay horas y la agenda tiene espacio</summary><div class="inner"><p>Revisar la tuerca (anticipación, máximo a futuro, modo de disponibilidad), que el servicio tenga reserva en línea activa y profesional asignada. La disponibilidad cruza horario del local, del servicio, de la profesional, recursos y reservas.</p></div></details>
+  <details><summary>¿La IA da sobrecupo?</summary><div class="inner"><p>No. Respeta lo ocupado. Por eso hay que anotar al instante a quien llega sin reserva.</p></div></details>
+  <details><summary>¿Cómo cotiza un servicio con precio variable?</summary><div class="inner"><p>Como lo definió el comercio en el formulario: «desde $X», tallas o escalar para cotizar. Si necesita diagnóstico, se puede crear un servicio de evaluación.</p></div></details>
+  <details><summary>¿La IA cobra abono?</summary><div class="inner"><p>Si el comercio lo configuró, por servicio y con monto fijo. Con link de pago de AgendaPro se paga en línea y el link dura 15 minutos. Con transferencia, la IA recibe el comprobante y escala para que recepción lo verifique. No lee PDF.</p></div></details>
+  <details><summary>¿Cuánto tarda Meta en aprobar una plantilla?</summary><div class="inner"><p>De minutos a 48 horas. Mientras, la automatización queda armada y en pausa.</p></div></details>
+  <details><summary>¿Hay riesgo de bloqueo por spam?</summary><div class="inner"><p>Sí, si muchas clientas reportan los mensajes. Por eso existe el límite de 7 días y conviene segmentar bien. Escribirle a una base cargada que nunca habló con el número aumenta el riesgo.</p></div></details>
+  <details><summary>¿Las campañas las hago yo o ustedes?</summary><div class="inner"><p>El comercio, con la Capacitación CRM. Si pide ejemplos, se le dejan borradores en su cuenta.</p></div></details>
+
+  <div class="pager"><a class="btn ghost" href="#pedir">Anterior: Cómo pedir cosas</a><a class="btn dark" href="#pais">Siguiente: Diferencias por país</a></div>
+</section>
+
+<!-- PAÍS -->
+<section class="page" id="pais">
+  <h2>Diferencias por país</h2>
+  <p class="lead">El proceso es el mismo. Cambia el camino más frecuente y el calendario de Bella.</p>
+  <div class="tbl"><table>
+    <tr><th></th><th>Chile</th><th>Argentina</th></tr>
+    <tr><td>Quién vende IA hoy</td><td>KAM (clientes existentes). Un cliente nuevo con IA entra por el camino ISR</td><td>Igual</td></tr>
+    <tr><td>Camino más frecuente</td><td>KAM: Capacitación IA → Capacitación CRM</td><td>ISR: Capacitación SaaS → IA → CRM</td></tr>
+    <tr><td>Moneda de los costos de Meta</td><td>Siempre en dólares</td><td>Siempre en dólares</td></tr>
+    <tr><td>Calendario para agendar desde Bella</td><td>Conectado</td><td>En conexión. Mientras tanto se agenda por fuera</td></tr>
+    <tr><td>Referencia de costo de servicio y utilidad</td><td>US$0,02</td><td>US$0,026</td></tr>
+  </table></div>
+  <div class="pager"><a class="btn ghost" href="#preguntas">Anterior: Preguntas del cliente</a><a class="btn dark" href="#equipo">Siguiente: Camino del equipo</a></div>
+</section>
+
+<!-- CAMINO DEL EQUIPO -->
+<section class="page" id="equipo">
+  <h2>Camino del equipo</h2>
+  <p class="lead">Cómo pasa un onboarder nuevo de observar a capacitar solo.</p>
+  <div class="callout gray"><p><b>Provisional.</b> Por ahora es el mismo camino del equipo de Health, hasta que Sabrina confirme el plan de Beauty.</p></div>
+  <ol class="order">
+    <li><b>Observa y estudia.</b> Estudiar esta guía y Preguntas del cliente, practicar en la cuenta demo cuando esté lista y presenciar 3 capacitaciones, una Capacitación IA con encendido y otra con un problema de Meta.</li>
+    <li><b>Enseña y acompaña.</b> Llevar 3 cuentas a una semana con la IA encendida, sin errores críticos y con los ajustes de las simulaciones aplicados.</li>
+    <li><b>Capacita con respaldo.</b> Dar 3 capacitaciones con alguien del canal de Onboarding Beauty a un mensaje de distancia. El paso a capacitar solos es una dirección, se decide según los casos.</li>
+  </ol>
+  <div class="pager"><a class="btn ghost" href="#pais">Anterior: Diferencias por país</a><a class="btn dark" href="#pendientes">Siguiente: Por confirmar</a></div>
+</section>
+
+<!-- POR CONFIRMAR -->
+<section class="page" id="pendientes">
+  <h2>Por confirmar</h2>
+  <p class="lead">Lo que todavía no está cerrado en las fuentes. Puede haber cambios del producto posteriores al 12 de noviembre.</p>
+  <ul class="check">
+    <li>Escalados: la guía dice que mientras siga escalado la IA no responde; Preguntas y respuestas (17-nov) dice que escalar no la apaga. Aquí se usa la versión del 17-nov</li>
+    <li>Reportar a Iris: la guía dice que solo desde Bella en la web; Preguntas y respuestas dice que también desde la app. Aquí se usa la versión del 17-nov</li>
+    <li>Cambios de catálogo: la guía pide avisar todo por Iris; Preguntas y respuestas dice que cambiar precios y profesionales se actualiza solo, y que crear o eliminar servicios o abrir una sede va por Iris. Aquí se usa la versión del 17-nov</li>
+    <li>Sección imágenes en la Capacitación IA (pendiente en la guía)</li>
+    <li>Qué se enseña en «Sección ofertas y promociones», que está en la lista de cierre pero no en el recorrido</li>
+    <li>Confirmar que el cliente tiene el pipeline por defecto activo en el CRM</li>
+    <li>Calendario de Bella en Argentina</li>
+    <li>Cuenta demo con conversaciones falsas para practicar</li>
+    <li>Plan de Sabrina para el camino del equipo (hoy es el mismo de Health)</li>
+  </ul>
+  <p class="meta">Fuentes: <a href="https://app.notion.com/p/417ab34c233b81918da9e967970295bf" target="_blank" rel="noopener">Onboarding Beauty AI · Guía paso a paso de capacitaciones</a> (12-nov) y <a href="https://app.notion.com/p/417ab34c233b810a9a47f90125a17f25" target="_blank" rel="noopener">Onboarding Beauty · Preguntas y respuestas</a> (17-nov).</p>
+  <div class="pager"><a class="btn ghost" href="#equipo">Anterior: Camino del equipo</a></div>
+</section>
+
+<footer>AgendaPro Beauty · 24 de noviembre de 2026 · Versión base sobre la guía del 12 de noviembre, se actualiza con cada cambio del producto</footer>
+</main>
+</div>
+
+<script>
+(function(){
+  var pages=[].slice.call(document.querySelectorAll('section.page'));
+  var links=[].slice.call(document.querySelectorAll('#nav a'));
+  function show(){
+    var id=(location.hash||'#inicio').slice(1);
+    if(!document.getElementById(id)||!document.getElementById(id).classList.contains('page')) id='inicio';
+    pages.forEach(function(p){p.classList.toggle('active',p.id===id)});
+    links.forEach(function(a){
+      var on=a.getAttribute('href')==='#'+id;
+      a.classList.toggle('active',on);
+      if(on&&window.innerWidth<=900) a.scrollIntoView({inline:'center',block:'nearest'});
+    });
+    window.scrollTo(0,0);
+  }
+  window.addEventListener('hashchange',show);
+  show();
+  document.querySelectorAll('.copy').forEach(function(b){
+    b.addEventListener('click',function(){
+      var t=b.parentNode.querySelector('pre').innerText;
+      navigator.clipboard.writeText(t).then(function(){b.textContent='Copiado';setTimeout(function(){b.textContent='Copiar'},1500)});
+    });
+  });
+})();
+</script>
+</body>
+</html>
